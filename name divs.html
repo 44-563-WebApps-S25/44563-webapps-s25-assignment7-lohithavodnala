@@ -1,50 +1,80 @@
 <!DOCTYPE html>
-<html> <head> <style>
-    .flex-container {
-      display: flex;  flex-direction:row;
-      background-color: red;
-  }
+<html lang="en">
+<head>
+    <title>Lohitha Vodnala builds list with divs</title>
+    <style>
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .divlist {
+            padding: 10px;
+            background-color: lightgreen;
+            border: 1px solid darkgreen;
+        }
+    </style>
+</head>
+<body>
 
-.flex-container > div {  /*div children of the flex container*/
-  background-color: #f1f1f1; 
-  margin: 10px;  padding: 20px;  font-size: 30px;
+<h1>Lohitha Vodnala builds list with divs</h1>
+
+<!-- Input to enter item -->
+<input type="text" id="itemInput" placeholder="Enter item">
+
+<!-- Buttons for adding and removing -->
+<button onclick="addEnd()">Add end</button>
+<button onclick="addFront()">Add front</button>
+<button onclick="remove()">Remove</button>
+
+<!-- Container for the div list -->
+<div class="flex-container" id="flexContainer">
+    <!-- Initial divs with class 'divlist' -->
+    <div class="divlist">Apple</div>
+    <div class="divlist">Banana</div>
+</div>
+
+<script>
+// Add new item to the END of the list
+function addEnd() {
+    const container = document.getElementById('flexContainer');
+    const newDiv = document.createElement('div');
+
+    newDiv.className = 'divlist';  // Step 6a
+    const itemValue = document.getElementById('itemInput').value;  // Step 6b
+    newDiv.innerHTML = itemValue;  // Step 6c
+
+    container.appendChild(newDiv);  // Step 6e
+    document.getElementById('itemInput').value = ''; // Clear input for next use
 }
 
-/* Responsive layout */
-@media (max-width: 600px) { 
-	 .flex-container{
-		 flex-direction:column;
-		 background-color: green;
-	  }
-	}
-</style></head>
+// Add new item to the FRONT of the list
+function addFront() {
+    const container = document.getElementById('flexContainer');
+    const newDiv = document.createElement('div');
 
+    newDiv.className = 'divlist';  // Same class
+    const itemValue = document.getElementById('itemInput').value;
+    newDiv.innerHTML = itemValue;
 
+    container.insertBefore(newDiv, container.firstChild); // Add to front
+    document.getElementById('itemInput').value = ''; // Clear input
+}
 
-<body>
-		<div class="flex-container" id="target">
-		  <div>row item 1</div>   
-		  <div>row item 2</div>  
-		  <div>row item 3</div>  
-		</div>
-	
-	<p> Press the button to create an new element of type div and then add it to the container.
-		</p>
-		<button onclick="makeNewDiv()">Add one</button>
-	
-	
-</body>
-<script>
-	function makeNewDiv(){
-		/* make the div and its text */
-		let element = document.createElement("div")
-		element.innerHTML = "an item after 3"
-		element.style.color = "orange"
+// Remove the MIDDLE item from the list
+function remove() {
+    const divListItems = document.getElementsByClassName('divlist');
+    const length = divListItems.length;
 
-		/* add it to the container */
-		let container = document.getElementById('target')
-		container.appendChild(element)
-		
-	}
+    if (length > 0) {
+        const middleIndex = Math.floor(length / 2);
+        divListItems[middleIndex].remove(); // Remove the middle element
+    }
+}
 </script>
-</html>	
+
+</body>
+</html>
